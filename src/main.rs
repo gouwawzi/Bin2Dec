@@ -1,9 +1,10 @@
-use bin2dec::*;
 use std::process;
 use std::env;
 
+mod lib;
+
 fn main() {
-    match run(env::args()) {
+    match lib::run(env::args()) {
         Ok(r) => println!("{}", r),
         Err(e) => {
             eprintln!("{}", e);
