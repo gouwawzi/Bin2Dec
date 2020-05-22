@@ -16,7 +16,9 @@ pub fn convert(s: &str) -> Result<u32,  &'static str> {
 
     for i in (0..s.len()).rev() {
             match &s[i..i+1].parse::<u32>() {
-                Ok(r) => {
+                Ok(r) => if *r > 1 {
+                    return Err("Invalid binary number!");
+                }else {
                     result += r*(1<<w);
                     w += 1;
                 },
@@ -54,6 +56,7 @@ mod tests {
 
     #[test]
     fn convert_invalid() {
-        assert_eq!(convert("abc"), Err("Invalid binary number!"))
+        assert_eq!(convert("abc"), Err("Invalid binary number!"));
+        assert_eq!(convert("123"), Err("Invalid binary number!"));
     }
 }
